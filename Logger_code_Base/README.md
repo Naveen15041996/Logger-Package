@@ -1,18 +1,70 @@
-# Salesforce DX Project: Next Steps
+🚀 Logger Package (Salesforce)
+📌 Overview
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+The Logger Package is a scalable and enterprise-grade logging framework built on Salesforce using Platform Events. It enables asynchronous, bulkified, and secure logging for applications and integrations.
 
-## How Do You Plan to Deploy Your Changes?
+This framework helps capture errors, debug information, and business logs efficiently without impacting transaction performance.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+🏗️ Architecture
+Application code invokes the Logger class
+Logger publishes Log_Event__e (Platform Event)
+Trigger processes event via LogEventTriggerHandler
+Logs are stored in Log__c
+✨ Features
+⚡ Asynchronous logging using Platform Events
+📦 Bulkified and scalable design
+🔐 Secure permission model (User, Integration, Admin)
+🧩 Extensible LogContext wrapper
+🛠️ Supports ERROR, INFO, DEBUG levels
+📊 Centralized log storage (Log__c)
+📁 Components
+🔹 Apex Classes
+Logger – Main logging utility
+LogContext – Wrapper for log data
+LogEventTriggerHandler – Handles platform events
+🔹 Objects
+Log__c – Stores log records
+Log_Event__e – Platform Event for async logging
+🔧 Usage
+✅ Log an Error
+try {
+    // some logic
+} catch (Exception e) {
+    Logger.error('AccountService', 'createAccount', e);
+}
+✅ Log Info
+Logger.info('AccountService', 'createAccount', 'Account created successfully');
+✅ Custom Logging
+Logger.log(
+    new Logger.LogContext('MyClass', 'myMethod')
+        .withMessage('Custom log message')
+        .withLevel('INFO')
+);
+🔐 Permission Model
+Permission Set	Purpose
+Logger_Integration_PS	For integrations (publish events, create logs)
+Logger_User_PS	Basic logging access
+Logger_Admin_PS	Full control and troubleshooting
+Logger_ReadOnly_PS	View-only access for monitoring
+🧠 Best Practices
+Avoid logging sensitive data (passwords, tokens)
+Use appropriate log levels (INFO, DEBUG, ERROR)
+Implement log filtering for performance
+Use correlation IDs for tracing
+🧪 Testing
+Test error logging scenarios
+Test bulk logging
+Validate event publishing
+Ensure trigger inserts logs correctly
+🚀 Future Enhancements
+📊 Logging dashboard (LWC + Reports)
+🔁 Retry mechanism for failed logs
+⚙️ Configurable logging via Custom Metadata
+🔍 Advanced monitoring & alerting
+👨‍💻 Author
 
-## Configure Your Salesforce DX Project
+Developed as part of a scalable Salesforce logging solution for enterprise applications.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+📜 License
 
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+This project can be customized and extended as per organizational needs.
